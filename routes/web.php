@@ -1,10 +1,11 @@
 <?php
 
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/hello', function () {
- return 'Hello World';
-});
+// Route::get('/hello', function () {
+//  return 'Hello World';
+// });
 
 Route::get('/world', function () {
  return 'World';
@@ -54,3 +55,24 @@ Route::get('/about', function () {
 Route::get('/', function () {
     return view('Welcome');
 });
+
+Route::get('/hello', [WelcomeController::class, 'hello']);
+
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ArticleController;
+
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/about', [AboutController::class, 'show']);
+Route::get('/articles/{id}', [ArticleController::class, 'show']);
+
+
+use App\Http\Controllers\PhotoController;
+Route::resource('photos', PhotoController::class);
+
+// Route::resource('photos', PhotoController::class)->only([
+//     'index', 'show'
+//    ]);
+//    Route::resource('photos', PhotoController::class)->except([
+//     'create', 'store', 'update', 'destroy'
+//    ]);
